@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "motion/react";
-import { AnimatedTooltipPreview } from "./Topseller";
 
 export function HeroSectionOne() {
   return (
