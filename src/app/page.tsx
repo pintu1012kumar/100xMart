@@ -3,6 +3,7 @@ import { HeroSectionOne } from "../components/Herosection";
 import { AnimatedTooltipPreview } from "../components/Topseller";
 import Chartdetails from "@/components/Chartdetails";
 import { DraggableCardDemo } from "@/components/CountryName";
+import Footer from "@/components/Footer";
 
 export default function Home() {
   return (
@@ -21,6 +22,9 @@ export default function Home() {
           <DraggableCardDemo />
         </div>
       </div>
+      <div className="my-10 mx-10"><Footer /></div>
+
+     
     </div>
   );
 }
