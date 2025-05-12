@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 import {
   DraggableCardBody,
   DraggableCardContainer,
@@ -65,11 +66,16 @@ export function DraggableCardDemo() {
 
       {items.map((item) => (
         <DraggableCardBody key={item.id} className={item.className}>
-          <img
-            src={item.image}
-            alt={item.title}
-            className="pointer-events-none relative z-10 h-80 w-80 object-cover"
-          />
+          <div className="relative z-10 h-80 w-80 pointer-events-none">
+            <Image
+              src={item.image}
+              alt={item.title}
+              fill
+              className="object-cover"
+              sizes="320px"
+              priority
+            />
+          </div>
           <h3 className="mt-4 text-center text-2xl font-bold text-neutral-700 dark:text-neutral-300">
             {item.title}
           </h3>

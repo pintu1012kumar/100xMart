@@ -1,4 +1,3 @@
-import { Circle } from "lucide-react";
 import { HeroSectionOne } from "../components/Herosection";
 import { AnimatedTooltipPreview } from "../components/Topseller";
 import Chartdetails from "@/components/Chartdetails";
