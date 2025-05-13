@@ -1,8 +1,7 @@
-'use client';
+"use client";
 
 import { ChangeEvent, useState } from "react";
 // import axios from "axios";
-
 
 type signupInput = {
   email: string;
@@ -17,20 +16,20 @@ export default function Signup() {
     password: "",
   });
 
-//   async function sendRequest() {
-//     try {
-//       const response = await axios.post(
-//         `${BACKEND_URL}/api/v1/user/signup`,
-//         { ...postInputs }
-//       );
+  //   async function sendRequest() {
+  //     try {
+  //       const response = await axios.post(
+  //         `${BACKEND_URL}/api/v1/user/signup`,
+  //         { ...postInputs }
+  //       );
 
-//       const jwt = response.data;
-//       localStorage.setItem("token", jwt);
-//       alert("Signup successful!");
-//     } catch (e) {
-//       alert("Error while signing up");
-//     }
-//   }
+  //       const jwt = response.data;
+  //       localStorage.setItem("token", jwt);
+  //       alert("Signup successful!");
+  //     } catch (e) {
+  //       alert("Error while signing up");
+  //     }
+  //   }
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 h-screen">
@@ -55,11 +54,17 @@ export default function Signup() {
         />
         <button
           type="button"
-        //   onClick={sendRequest}
+          //   onClick={sendRequest}
           className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mt-3 w-1/2"
         >
           Sign In
         </button>
+        <div className="text-sm font-medium text-gray-500 mt-2">
+          Don't have an account?{" "}
+          <a href="/signup" className="text-blue-700 hover:underline">
+            Sign up
+          </a>
+        </div>
       </div>
 
       {/* Right Side - Quote Section */}
