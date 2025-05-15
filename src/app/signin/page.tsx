@@ -1,7 +1,7 @@
 "use client";
 
 import { ChangeEvent, useState } from "react";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { useRouter } from "next/navigation";
 
 type SigninInput = {
@@ -22,12 +22,13 @@ export default function Signin() {
         ...postInputs,
       });
 
-      const jwt = response.data.token; 
+      const jwt = response.data.token;
       localStorage.setItem("token", jwt);
       alert("Signin successful!");
-      router.push("/sellerdashboard"); 
-    } catch (e: any) {
-      alert("Error while signing in: " + (e?.response?.data?.message || e.message));
+      router.push("/sellerdashboard");
+    } catch (e) {
+      const error = e as AxiosError<{ message: string }>;
+      alert("Error while signing in: " + (error.response?.data?.message || error.message));
     }
   }
 
@@ -54,13 +55,13 @@ export default function Signin() {
         />
         <button
           type="button"
-          onClick={sendRequest} 
+          onClick={sendRequest}
           className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mt-3 w-1/2"
         >
           Sign In
         </button>
         <div className="text-sm font-medium text-gray-500 mt-2">
-          Don't have an account?{" "}
+          Don&apos;t have an account?{" "}
           <a href="/signup" className="text-blue-700 hover:underline">
             Sign up
           </a>
@@ -71,8 +72,8 @@ export default function Signin() {
       <div className="hidden md:flex bg-gray-500 justify-center items-center">
         <div className="max-w-md p-4">
           <div className="text-2xl font-bold">
-            "The customer service I received was exceptional. The support team
-            went above and beyond to address my concern."
+            &ldquo;The customer service I received was exceptional. The support
+            team went above and beyond to address my concern.&rdquo;
           </div>
           <div className="text-xl font-semibold mt-2">Julies Winfield</div>
           <div className="text-sm font-medium text-slate-400 mt-1">

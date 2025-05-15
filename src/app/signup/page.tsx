@@ -1,8 +1,8 @@
 "use client";
 
 import { ChangeEvent, useState } from "react";
-import axios from "axios";
-import { useRouter } from "next/navigation"; 
+import axios, { AxiosError } from "axios";
+import { useRouter } from "next/navigation";
 
 type SignupInput = {
   email: string;
@@ -12,7 +12,7 @@ type SignupInput = {
 };
 
 export default function Signup() {
-  const router = useRouter(); 
+  const router = useRouter();
   const [postInputs, setPostInputs] = useState<SignupInput>({
     email: "",
     name: "",
@@ -30,9 +30,10 @@ export default function Signup() {
       localStorage.setItem("token", jwt);
       alert("Signup successful!");
 
-      router.push("/sellerdashboard"); 
-    } catch (e: any) {
-      alert("Error while signing up: " + (e?.response?.data?.message || e.message));
+      router.push("/sellerdashboard");
+    } catch (e) {
+      const error = e as AxiosError<{ message: string }>;
+      alert("Error while signing up: " + (error.response?.data?.message || error.message));
     }
   }
 
@@ -92,8 +93,8 @@ export default function Signup() {
       <div className="hidden md:flex bg-gray-500 justify-center items-center">
         <div className="max-w-md p-4">
           <div className="text-2xl font-bold">
-            "The customer service I received was exceptional. The support team
-            went above and beyond to address my concern."
+            &ldquo;The customer service I received was exceptional. The support
+            team went above and beyond to address my concern.&rdquo;
           </div>
           <div className="text-xl font-semibold mt-2">Julies Winfield</div>
           <div className="text-sm font-medium text-slate-400 mt-1">
