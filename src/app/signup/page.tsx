@@ -2,7 +2,7 @@
 
 import { ChangeEvent, useState } from "react";
 import axios from "axios";
-import { useRouter } from "next/navigation"; // ✅ import useRouter
+import { useRouter } from "next/navigation"; 
 
 type SignupInput = {
   email: string;
@@ -12,7 +12,7 @@ type SignupInput = {
 };
 
 export default function Signup() {
-  const router = useRouter(); // ✅ initialize router
+  const router = useRouter(); 
   const [postInputs, setPostInputs] = useState<SignupInput>({
     email: "",
     name: "",
@@ -26,11 +26,11 @@ export default function Signup() {
         ...postInputs,
       });
 
-      const jwt = response.data.token; // make sure your backend sends { token: "..." }
+      const jwt = response.data.token;
       localStorage.setItem("token", jwt);
       alert("Signup successful!");
 
-      router.push("/sellerdashboard"); // ✅ redirect to /dashboard
+      router.push("/sellerdashboard"); 
     } catch (e: any) {
       alert("Error while signing up: " + (e?.response?.data?.message || e.message));
     }
