@@ -1,39 +1,43 @@
 "use client";
 
 import { ChangeEvent, useState } from "react";
-// import axios from "axios";
+import axios from "axios";
+import { useRouter } from "next/navigation"; // ✅ import useRouter
 
-type signupInput = {
+type SignupInput = {
   email: string;
   name: string;
   password: string;
+  companyName: string;
 };
 
 export default function Signup() {
-  const [postInputs, setPostInputs] = useState<signupInput>({
+  const router = useRouter(); // ✅ initialize router
+  const [postInputs, setPostInputs] = useState<SignupInput>({
     email: "",
     name: "",
     password: "",
+    companyName: "",
   });
 
-  //   async function sendRequest() {
-  //     try {
-  //       const response = await axios.post(
-  //         `${BACKEND_URL}/api/v1/user/signup`,
-  //         { ...postInputs }
-  //       );
+  async function sendRequest() {
+    try {
+      const response = await axios.post("/api/seller/signup", {
+        ...postInputs,
+      });
 
-  //       const jwt = response.data;
-  //       localStorage.setItem("token", jwt);
-  //       alert("Signup successful!");
-  //     } catch (e) {
-  //       alert("Error while signing up");
-  //     }
-  //   }
+      const jwt = response.data.token; // make sure your backend sends { token: "..." }
+      localStorage.setItem("token", jwt);
+      alert("Signup successful!");
+
+      router.push("/sellerdashboard"); // ✅ redirect to /dashboard
+    } catch (e: any) {
+      alert("Error while signing up: " + (e?.response?.data?.message || e.message));
+    }
+  }
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 h-screen">
-      {/* Left Side - Signup Form */}
       <div className="flex justify-center items-center flex-col">
         <div className="text-3xl font-extrabold">Create an account</div>
 
@@ -62,14 +66,17 @@ export default function Signup() {
         <LabelInput
           label="Company Name"
           type="text"
-          placeholder="Nike"
+          placeholder="ZipBite Pvt Ltd"
           onChange={(e) =>
-            setPostInputs((prev) => ({ ...prev, password: e.target.value }))
+            setPostInputs((prev) => ({
+              ...prev,
+              companyName: e.target.value,
+            }))
           }
         />
         <button
           type="button"
-          //   onClick={sendRequest}
+          onClick={sendRequest}
           className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mt-3 w-1/2"
         >
           Sign up
@@ -82,12 +89,11 @@ export default function Signup() {
         </div>
       </div>
 
-      {/* Right Side - Quote Section */}
       <div className="hidden md:flex bg-gray-500 justify-center items-center">
         <div className="max-w-md p-4">
           <div className="text-2xl font-bold">
             "The customer service I received was exceptional. The support team
-            went above and address my concern."
+            went above and beyond to address my concern."
           </div>
           <div className="text-xl font-semibold mt-2">Julies Winfield</div>
           <div className="text-sm font-medium text-slate-400 mt-1">
