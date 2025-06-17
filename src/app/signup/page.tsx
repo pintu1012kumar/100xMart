@@ -26,7 +26,6 @@ export default function Signup() {
         ...postInputs,
       });
 
-      const jwt = response.data.token;
       alert("Signup successful!");
 
       router.push("/sellerdashboard");

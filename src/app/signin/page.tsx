@@ -22,7 +22,6 @@ export default function Signin() {
         ...postInputs,
       });
 
-      const jwt = response.data.token;
       alert("Signin successful!");
       router.push("/sellerdashboard");
     } catch (e) {
