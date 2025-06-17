@@ -16,12 +16,23 @@ const SellerDashboard = () => {
     content: "",
     file: null,
   });
+
   const router = useRouter();
+
   const handleLogout = async () => {
-    await fetch("/api/seller/logout");
-    router.push("/signin");
+    try {
+      await fetch("/api/seller/logout", {
+        method: "GET",
+        credentials: "include",
+      });
+      router.push("/signin");
+    } catch (error) {
+      console.error("Logout failed:", error);
+      alert("Logout failed.");
+    }
   };
-  async function sendRequest() {
+
+  const sendRequest = async () => {
     if (!postInputs.title || !postInputs.file) {
       return alert("Title and image are required");
     }
@@ -29,29 +40,29 @@ const SellerDashboard = () => {
     const formData = new FormData();
     formData.append("title", postInputs.title);
     formData.append("content", postInputs.content);
-    formData.append("image", postInputs.file); 
+    formData.append("image", postInputs.file);
 
     try {
       const response = await axios.post("/api/seller/posts", formData);
       console.log("Post created:", response.data);
       alert("Post created successfully!");
+      setPostInputs({ title: "", content: "", file: null }); // Reset form
     } catch (error) {
       console.error("Post creation failed:", error);
       alert("Failed to create post.");
     }
-  }
+  };
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 h-screen">
+      {/* Left Side Welcome Panel */}
       <div className="hidden md:flex bg-gray-500 justify-center items-center">
         <div className="max-w-md p-4">
           <div className="text-2xl font-bold text-white">
-            <span className="text-4xl"> Welcome to 100xmart !!</span>
+            <span className="text-4xl">Welcome to 100xmart !!</span>
             <div>Now you can list your product here.</div>
           </div>
-          <div className="text-xl font-semibold mt-2 text-white">
-            ~ Pintu Kumar
-          </div>
+          <div className="text-xl font-semibold mt-2 text-white">~ Pintu Kumar</div>
           <div className="text-sm font-medium text-slate-200 mt-1">
             CEO | 100xmart
           </div>
@@ -65,6 +76,7 @@ const SellerDashboard = () => {
         </div>
       </div>
 
+      {/* Right Side Form */}
       <div className="flex justify-center items-center flex-col">
         <div className="text-3xl font-extrabold mb-4 text-white">
           List Your Product Here ..
@@ -90,7 +102,7 @@ const SellerDashboard = () => {
           onChange={(e) =>
             setPostInputs((prev) => ({
               ...prev,
-              file: e.target.files ? e.target.files[0] : null,
+              file: e.target.files?.[0] || null,
             }))
           }
         />
