@@ -18,9 +18,10 @@ export default function Signin() {
 
   async function sendRequest() {
     try {
-      const response = await axios.post("/api/seller/signin", {
+       await axios.post("/api/seller/signin", {
         ...postInputs,
       });
+
 
       alert("Signin successful!");
       router.push("/sellerdashboard");

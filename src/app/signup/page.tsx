@@ -22,7 +22,7 @@ export default function Signup() {
 
   async function sendRequest() {
     try {
-      const response = await axios.post("/api/seller/signup", {
+      await axios.post("/api/seller/signup", {
         ...postInputs,
       });
 
