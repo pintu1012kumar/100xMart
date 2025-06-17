@@ -27,8 +27,6 @@ export async function POST(req: NextRequest) {
     }
 
     const token = generateToken({ id: user.id, email: user.email });
-
-    // ✅ IMPORTANT: Cookie set karo
     const response = NextResponse.json(
       {
         message: "Sign in successful",
@@ -38,7 +36,7 @@ export async function POST(req: NextRequest) {
           email: user.email,
         companyName: user.companyName,
         },
-        token,  // Include token in the response
+        token,  
       },
       { status: 200 }
     );
@@ -46,7 +44,7 @@ export async function POST(req: NextRequest) {
     response.cookies.set("token", token, {
       httpOnly: true,
       path: "/",
-      maxAge: 7 * 24 * 60 * 60, // 7 days
+      maxAge: 7 * 24 * 60 * 60, 
     });
 
     return response;

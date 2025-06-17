@@ -30,8 +30,6 @@ export async function POST(req: NextRequest) {
     });
 
     const token = generateToken({ id: user.id, email: user.email });
-
-    // Store token in localStorage on frontend after signup
     return NextResponse.json(
       {
         message: "User created successfully",

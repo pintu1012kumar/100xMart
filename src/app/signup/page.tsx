@@ -27,7 +27,6 @@ export default function Signup() {
       });
 
       const jwt = response.data.token;
-      localStorage.setItem("token", jwt);
       alert("Signup successful!");
 
       router.push("/sellerdashboard");

@@ -23,7 +23,6 @@ export default function Signin() {
       });
 
       const jwt = response.data.token;
-      localStorage.setItem("token", jwt);
       alert("Signin successful!");
       router.push("/sellerdashboard");
     } catch (e) {

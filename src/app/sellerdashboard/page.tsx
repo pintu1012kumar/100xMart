@@ -2,6 +2,7 @@
 
 import React, { useState, ChangeEvent } from "react";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 
 type PostInput = {
   title: string;
@@ -15,7 +16,11 @@ const SellerDashboard = () => {
     content: "",
     file: null,
   });
-
+  const router = useRouter();
+  const handleLogout = async () => {
+    await fetch("/api/seller/logout");
+    router.push("/signin");
+  };
   async function sendRequest() {
     if (!postInputs.title || !postInputs.file) {
       return alert("Title and image are required");
@@ -24,7 +29,7 @@ const SellerDashboard = () => {
     const formData = new FormData();
     formData.append("title", postInputs.title);
     formData.append("content", postInputs.content);
-    formData.append("image", postInputs.file); // 'image' matches the backend key
+    formData.append("image", postInputs.file); 
 
     try {
       const response = await axios.post("/api/seller/posts", formData);
@@ -41,15 +46,22 @@ const SellerDashboard = () => {
       <div className="hidden md:flex bg-gray-500 justify-center items-center">
         <div className="max-w-md p-4">
           <div className="text-2xl font-bold text-white">
-            &ldquo;The customer service I received was exceptional. The support
-            team went above and beyond to address my concern.&rdquo;
+            <span className="text-4xl"> Welcome to 100xmart !!</span>
+            <div>Now you can list your product here.</div>
           </div>
           <div className="text-xl font-semibold mt-2 text-white">
-            Julies Winfield
+            ~ Pintu Kumar
           </div>
           <div className="text-sm font-medium text-slate-200 mt-1">
-            CEO | Acme corp
+            CEO | 100xmart
           </div>
+          <button
+            type="button"
+            onClick={handleLogout}
+            className="mt-4 text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5"
+          >
+            Logout
+          </button>
         </div>
       </div>
 
