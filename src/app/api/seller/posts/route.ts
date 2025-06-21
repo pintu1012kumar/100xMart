@@ -1,7 +1,8 @@
 import { NextResponse } from 'next/server';
 import { writeFile } from 'fs/promises';
 import path from 'path';
-import {prisma} from '@/lib/prisma'; // ✅ Prisma client
+import { prisma } from '@/lib/prisma';
+
 
 export async function POST(req: Request) {
   const formData = await req.formData();
@@ -14,18 +15,14 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
   }
 
-  // 1. Convert image to buffer
   const bytes = await file.arrayBuffer();
   const buffer = Buffer.from(bytes);
 
-  // 2. Create file path in /public/uploads
   const uploadDir = path.join(process.cwd(), 'public', 'uploads');
   const filePath = path.join(uploadDir, file.name);
 
-  // 3. Save file
   await writeFile(filePath, buffer);
 
-  // 4. Save Post to DB (authorId is hardcoded for now)
   const post = await prisma.post.create({
     data: {
       title,
@@ -37,3 +34,22 @@ export async function POST(req: Request) {
 
   return NextResponse.json({ success: true, post });
 }
+
+
+export async function GET() {
+  try {
+    const posts = await prisma.post.findMany({
+      where: {
+        status: 'Success', // Only get posts with Success status
+      },
+      orderBy: {
+        createdAt: 'desc',
+      },
+    });
+
+    return NextResponse.json({ success: true, posts });
+  } catch (error) {
+    return NextResponse.json({ error: 'Failed to fetch posts' }, { status: 500 });
+  }
+}
+

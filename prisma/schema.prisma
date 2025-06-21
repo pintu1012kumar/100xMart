@@ -9,6 +9,12 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum PostStatus {
+  Success
+  Failure
+  Processing
+}
+
 model SellerUser {
   id           Int     @id @default(autoincrement())
   name         String
@@ -19,11 +25,14 @@ model SellerUser {
 }
 
 model Post {
-  id        Int     @id @default(autoincrement())
+  id        Int         @id @default(autoincrement())
   title     String
   content   String
-  published Boolean @default(false)
-   image     String 
+  published Boolean     @default(false)
+  image     String
+  status    PostStatus  @default(Processing) 
   authorId  Int
-  author    SellerUser @relation(fields: [authorId], references: [id])
+  createdAt DateTime    @default(now())
+ updatedAt DateTime @updatedAt @default(now()) 
+  author    SellerUser  @relation(fields: [authorId], references: [id])
 }
