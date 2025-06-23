@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, { useState, ChangeEvent } from "react";
@@ -54,22 +55,20 @@ const SellerDashboard = () => {
   };
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 h-screen">
+    <div className="grid grid-cols-1 md:grid-cols-2 h-screen bg-black text-white">
       {/* Left Side Welcome Panel */}
-      <div className="hidden md:flex bg-gray-500 justify-center items-center">
-        <div className="max-w-md p-4">
-          <div className="text-2xl font-bold text-white">
-            <span className="text-4xl">Welcome to 100xmart !!</span>
-            <div>Now you can list your product here.</div>
-          </div>
-          <div className="text-xl font-semibold mt-2 text-white">~ Pintu Kumar</div>
-          <div className="text-sm font-medium text-slate-200 mt-1">
+      <div className="hidden md:flex bg-gray-800 justify-center items-center">
+        <div className="max-w-md p-4 text-center">
+          <div className="text-4xl font-bold mb-4">Welcome to 100xmart!!</div>
+          <p className="mb-2">Now you can list your product here.</p>
+          <div className="text-xl font-semibold mt-2">~ Pintu Kumar</div>
+          <div className="text-sm font-medium text-slate-300 mt-1">
             CEO | 100xmart
           </div>
           <button
             type="button"
             onClick={handleLogout}
-            className="mt-4 text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5"
+            className="mt-6 text-white bg-gray-700 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5"
           >
             Logout
           </button>
@@ -77,9 +76,9 @@ const SellerDashboard = () => {
       </div>
 
       {/* Right Side Form */}
-      <div className="flex justify-center items-center flex-col">
-        <div className="text-3xl font-extrabold mb-4 text-white">
-          List Your Product Here ..
+      <div className="flex flex-col justify-center items-center px-4">
+        <div className="text-2xl font-bold mb-4 text-center">
+          List Your Product Here
         </div>
 
         <LabelInput
@@ -110,7 +109,7 @@ const SellerDashboard = () => {
         <button
           type="button"
           onClick={sendRequest}
-          className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mt-3 w-1/2"
+          className="text-white bg-gray-700 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mt-4 w-1/2"
         >
           Submit Post
         </button>
@@ -128,7 +127,7 @@ interface LabelInputType {
 
 function LabelInput({ label, placeholder, onChange, type }: LabelInputType) {
   return (
-    <div className="my-2 w-1/2">
+    <div className="my-2 w-full max-w-md">
       <label className="block mb-1 text-sm font-medium text-white">
         {label}
       </label>
