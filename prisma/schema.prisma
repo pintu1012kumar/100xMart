@@ -15,6 +15,7 @@ enum PostStatus {
   Processing
 }
 
+
 model SellerUser {
   id           Int     @id @default(autoincrement())
   name         String
@@ -22,6 +23,13 @@ model SellerUser {
   password     String
   companyName  String
   posts        Post[]
+}
+model BuyerUser {
+  id           Int     @id @default(autoincrement())
+  name         String
+  email        String  @unique
+  password     String
+  phoneNumber String
 }
 
 model Post {
