@@ -29,11 +29,11 @@ export async function POST(req: NextRequest) {
       },
     });
 
-    const token = generateToken({ id: user.id, email: user.email });
+    const buyertoken = generateToken({ id: user.id, email: user.email });
     return NextResponse.json(
       {
         message: "User created successfully",
-        token, 
+        buyertoken, 
         user: {
           id: user.id,
           name: user.name,

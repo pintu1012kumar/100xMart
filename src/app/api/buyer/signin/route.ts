@@ -26,7 +26,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Invalid credentials" }, { status: 401 });
     }
 
-    const token = generateToken({ id: user.id, email: user.email });
+    const buyertoken = generateToken({ id: user.id, email: user.email });
     const response = NextResponse.json(
       {
         message: "Sign in successful",
@@ -36,12 +36,12 @@ export async function POST(req: NextRequest) {
           email: user.email,
         phoneNumber: user.phoneNumber,
         },
-        token,  
+        buyertoken,  
       },
       { status: 200 }
     );
 
-    response.cookies.set("token", token, {
+    response.cookies.set("buyertoken", buyertoken, {
       httpOnly: true,
       path: "/",
       maxAge: 7 * 24 * 60 * 60, 

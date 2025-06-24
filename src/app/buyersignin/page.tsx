@@ -6,18 +6,14 @@ import { useState } from "react";
 
 type SignupInput = {
   email: string;
-  name: string;
   password: string;
-  phoneNumber: string;
 };
 
 export default function Buyersignup() {
   const router = useRouter();
   const [postInputs, setPostInputs] = useState<SignupInput>({
     email: "",
-    name: "",
     password: "",
-    phoneNumber: "",
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -29,13 +25,13 @@ export default function Buyersignup() {
 
   async function sendRequest() {
     try {
-      await axios.post("/api/buyer/signup", { ...postInputs });
-      alert("Signup successful!");
+      await axios.post("/api/buyer/signin", { ...postInputs });
+      alert("Signin successful!");
       router.push("/buyerdashboard");
     } catch (e) {
       const error = e as AxiosError<{ message: string }>;
       alert(
-        "Error while signing up: " +
+        "Error while signing in: " +
           (error.response?.data?.message || error.message)
       );
     }
@@ -63,22 +59,10 @@ export default function Buyersignup() {
         {/* Right Section (Signup Form) */}
         <div className="w-full lg:w-1/2 bg-white p-8 lg:p-12">
           <h1 className="text-3xl font-bold text-gray-800 mb-15 text-center ">
-            Create your account:
+            Login:
           </h1>
           <form className="space-y-4">
-            <div>
-              <label className="label font-medium text-gray-700">
-                Full Name:
-              </label>
-              <input
-                type="text"
-                name="name"
-                placeholder="Pintu Kumar"
-                value={postInputs.name}
-                onChange={handleChange}
-               className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-indigo-500 transition duration-200 text-sm text-black"
-              />
-            </div>
+            
             <div>
               <label className="label font-medium  text-gray-700">Email:</label>
               <input
@@ -91,19 +75,7 @@ export default function Buyersignup() {
 
               />
             </div>
-            <div>
-              <label className="label font-medium text-gray-700">
-                Phone Number:
-              </label>
-              <input
-                type="text"
-                name="phoneNumber"
-                placeholder="+91 XXXXXXXXXX"
-                value={postInputs.phoneNumber}
-                onChange={handleChange}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-indigo-500 transition duration-200 text-sm text-black"
-              />
-            </div>
+            
             <div>
               <label className="label font-medium text-gray-700">
                 Password:
@@ -118,9 +90,9 @@ export default function Buyersignup() {
               />
             </div>
             <div className="text-sm text-red-500 text-right">
-                Already have an account?{" "}
-              <a href="/buyersignin" className="text-indigo-500 hover:underline cursor-pointer">
-                  Signin
+                Create account?{" "}
+              <a href="/buyersignup" className="text-indigo-500 hover:underline cursor-pointer">
+                  Signup
               </a>
             </div>
             <button
