@@ -1,6 +1,4 @@
 import { NextResponse } from 'next/server';
-import { writeFile, mkdir } from 'fs/promises';
-import path from 'path';
 import { prisma } from '@/lib/prisma';
 
 export async function POST(req: Request) {
@@ -18,19 +16,17 @@ export async function POST(req: Request) {
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
 
-    const uploadDir = path.join(process.cwd(), 'public', 'uploads');
-
-    // Ensure uploads directory exists
-    await mkdir(uploadDir, { recursive: true });
-
-    const filePath = path.join(uploadDir, file.name);
-    await writeFile(filePath, buffer);
+    // 🔴 Disable file saving on Vercel
+    // const uploadDir = path.join(process.cwd(), 'public', 'uploads');
+    // await mkdir(uploadDir, { recursive: true });
+    // const filePath = path.join(uploadDir, file.name);
+    // await writeFile(filePath, buffer);
 
     const post = await prisma.post.create({
       data: {
         title,
         content,
-        image: `/uploads/${file.name}`,
+        image: `/uploads/${file.name}`, // You can later replace this with remote upload URL
         authorId: 1, // Replace with dynamic user ID after auth integration
       },
     });
@@ -46,7 +42,7 @@ export async function GET() {
   try {
     const posts = await prisma.post.findMany({
       where: {
-        status: 'Success', // Only fetch successful posts
+        status: 'Success',
       },
       orderBy: {
         createdAt: 'desc',
