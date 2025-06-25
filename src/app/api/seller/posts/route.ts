@@ -13,15 +13,14 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
     }
 
-    // Read the file bytes (if needed later)
-    const bytes = await file.arrayBuffer();
+    // 🔴 Skipping file reading/writing in Vercel
 
     const post = await prisma.post.create({
       data: {
         title,
         content,
-        image: `/uploads/${file.name}`, // Placeholder path
-        authorId: 1, // Replace with dynamic user ID later
+        image: `/uploads/${file.name}`, // Replace with Cloudinary URL later
+        authorId: 1, // TODO: Replace with dynamic user ID
       },
     });
 
