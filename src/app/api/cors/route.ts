@@ -1,16 +1,15 @@
-// app/api/yourendpoint/route.ts
-import { NextRequest } from "next/server";
 import { setCorsHeaders } from "@/lib/cors";
 
-export async function GET(req: NextRequest) {
-  const response = new Response(JSON.stringify({ message: "CORS success" }), {
+// GET Example (optional - you can remove if not needed)
+export async function GET() {
+  const response = new Response(JSON.stringify({ message: "CORS is working!" }), {
     status: 200,
   });
 
   return setCorsHeaders(response);
 }
 
+// OPTIONS handler for preflight CORS requests
 export async function OPTIONS() {
-  // Pre-flight CORS support
   return setCorsHeaders(new Response(null, { status: 204 }));
 }
