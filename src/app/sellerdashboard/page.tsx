@@ -59,7 +59,7 @@ const SellerDashboard = () => {
       {/* Left Side Welcome Panel */}
       <div className="hidden md:flex bg-gray-800 justify-center items-center">
         <div className="max-w-md p-4 text-center">
-          <div className="text-4xl font-bold mb-4">Welcome to 100xmart!!</div>
+          <div className="text-4xl font-bold mb-4">Welcome to 100xmart !!</div>
           <p className="mb-2">Now you can list your product here.</p>
           <div className="text-xl font-semibold mt-2">~ Pintu Kumar</div>
           <div className="text-sm font-medium text-slate-300 mt-1">
@@ -68,7 +68,7 @@ const SellerDashboard = () => {
           <button
             type="button"
             onClick={handleLogout}
-            className="mt-6 text-white bg-gray-700 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5"
+            className="mt-6 text-white bg-blue-500 hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5"
           >
             Logout
           </button>
@@ -89,7 +89,7 @@ const SellerDashboard = () => {
           }
         />
         <LabelInput
-          label="Content"
+          label="Description"
           placeholder="Write something..."
           onChange={(e) =>
             setPostInputs((prev) => ({ ...prev, content: e.target.value }))
@@ -109,9 +109,9 @@ const SellerDashboard = () => {
         <button
           type="button"
           onClick={sendRequest}
-          className="text-white bg-gray-700 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mt-4 w-1/2"
+          className="text-white bg-blue-500 hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mt-4 w-1/5"
         >
-          Submit Post
+          List
         </button>
       </div>
     </div>

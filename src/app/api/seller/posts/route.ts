@@ -13,14 +13,14 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
     }
 
-    // 🔴 Skipping file reading/writing in Vercel
+    
 
     const post = await prisma.post.create({
       data: {
         title,
         content,
-        image: `/uploads/${file.name}`, // Replace with Cloudinary URL later
-        authorId: 1, // TODO: Replace with dynamic user ID
+        image: `/uploads/${file.name}`, //   Cloudinary URL later
+        authorId: 1, 
       },
     });
 
