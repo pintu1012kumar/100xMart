@@ -1,9 +1,7 @@
 "use client";
 
 import { ContainerTextFlipDemo } from "@/components/Buyerherosection";
-import Cards from "@/components/cards";
 import Navbar from "@/components/Navbar";
-import { Card } from "@/components/ui/card";
 import { useRouter } from "next/navigation"; // ✅ App Router
 import React from "react";
 
