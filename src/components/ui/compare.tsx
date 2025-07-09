@@ -113,14 +113,11 @@ export const Compare = ({
     [handleMove]
   );
 
-  const handleTouchStart = useCallback(
-    (e: React.TouchEvent) => {
-      if (!autoplay) {
-        handleStart();
-      }
-    },
-    [handleStart, autoplay]
-  );
+  const handleTouchStart = useCallback(() => {
+    if (!autoplay) {
+      handleStart();
+    }
+  }, [handleStart, autoplay]);
 
   const handleTouchEnd = useCallback(() => {
     if (!autoplay) {
@@ -186,7 +183,7 @@ export const Compare = ({
 
       <div className="overflow-hidden w-full h-full relative z-20 pointer-events-none">
         <AnimatePresence initial={false}>
-          {firstImage ? (
+          {firstImage && (
             <motion.div
               className={cn(
                 "absolute inset-0 z-20 rounded-2xl shrink-0 w-full h-full select-none overflow-hidden",
@@ -207,12 +204,12 @@ export const Compare = ({
                 draggable={false}
               />
             </motion.div>
-          ) : null}
+          )}
         </AnimatePresence>
       </div>
 
       <AnimatePresence initial={false}>
-        {secondImage ? (
+        {secondImage && (
           <motion.img
             className={cn(
               "absolute top-0 left-0 z-[19] rounded-2xl w-full h-full select-none",
@@ -222,7 +219,7 @@ export const Compare = ({
             src={secondImage}
             draggable={false}
           />
-        ) : null}
+        )}
       </AnimatePresence>
     </div>
   );

@@ -2,24 +2,24 @@
 
 import { ContainerTextFlipDemo } from "@/components/Buyerherosection";
 import Navbar from "@/components/Navbar";
-import { useRouter } from "next/navigation"; // ✅ App Router
+// import { useRouter } from "next/navigation"; 
 import React from "react";
 
 export default function WelcomePage() {
-  const router = useRouter();
+  // const router = useRouter();
 
-  const handleLogout = async () => {
-    try {
-      await fetch("/api/buyer/logout", {
-        method: "GET",
-        credentials: "include",
-      });
-      router.push("/buyersignin");
-    } catch (error) {
-      console.error("Logout failed:", error);
-      alert("Logout failed.");
-    }
-  };
+  // const handleLogout = async () => {
+  //   try {
+  //     await fetch("/api/buyer/logout", {
+  //       method: "GET",
+  //       credentials: "include",
+  //     });
+  //     router.push("/buyersignin");
+  //   } catch (error) {
+  //     console.error("Logout failed:", error);
+  //     alert("Logout failed.");
+  //   }
+  // };
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
