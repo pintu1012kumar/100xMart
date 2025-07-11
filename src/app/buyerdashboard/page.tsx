@@ -2,9 +2,11 @@
 
 import { ContainerTextFlipDemo } from "@/components/Buyerherosection";
 import Navbar from "@/components/Navbar";
+import { useRouter } from "next/navigation";
 import React from "react";
 
 export default function WelcomePage() {
+  const router = useRouter();
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       <Navbar />
@@ -16,7 +18,9 @@ export default function WelcomePage() {
           maza lijiye. Aapka shopping experience behtar banane ke liye hum yahan
           hain.
         </p>
-        <button className="ml-2 mr-5 px-4 py-2 bg-blue-600 text-white rounded-2xl hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-400">
+        <button 
+        onClick={ () => router.push("/100xmart")}
+        className="ml-2 mr-5 px-4 py-2 bg-blue-600 text-white rounded-2xl hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-400">
           Go to shopping
         </button>
       </div>
