@@ -1,13 +1,13 @@
 "use client";
-import Cards from '@/components/cards';
+import CardGrid from '@/components/Buyer/Card/CardGrid';
 import Navbar from '@/components/Navbar'
-import React, { use } from 'react'
+import React from 'react'
 
 const page = () => {
   return (
     <div>
       <Navbar />
-      <Cards /> 
+      <CardGrid /> 
     </div>
   )
 }
