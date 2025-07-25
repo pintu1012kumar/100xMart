@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
+import slugify from 'slugify';
 
 export async function POST(req: Request) {
   try {
@@ -9,23 +10,33 @@ export async function POST(req: Request) {
     const content = formData.get('content') as string;
     const file = formData.get('image') as File;
 
-    if (!file || !title) {
+    if (!title || !content || !file) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
     }
 
-    
+    const slug = slugify(title, { lower: true, strict: true });
+
+    const buffer = await file.arrayBuffer();
+    const bytes = new Uint8Array(buffer);
+
+    // NOTE: Save this `bytes` to file system or cloud (you decide)
+    // For now we just fake the image URL
+    const imageUrl = `/uploads/${file.name}`;
 
     const post = await prisma.post.create({
       data: {
         title,
         content,
-        image: `/uploads/${file.name}`, //   Cloudinary URL later
-        authorId: 1, 
+        slug,
+        image: imageUrl,
+        status: 'Processing',   // or 'Success' depending on logic
+        authorId: 1,            // TODO: Replace with actual logged-in user ID
+        published: false,
       },
     });
 
     return NextResponse.json({ success: true, post });
-  } catch (err) {
+  } catch (err: any) {
     console.error('POST error:', err);
     return NextResponse.json({ error: 'Failed to create post' }, { status: 500 });
   }

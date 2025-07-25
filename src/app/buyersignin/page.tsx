@@ -100,9 +100,16 @@ export default function Buyersignup() {
               onClick={sendRequest}
               className="w-full py-3 px-6 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold shadow-md hover:shadow-lg hover:scale-[1.02] transition-transform duration-300 focus:outline-none focus:ring-4 focus:ring-indigo-300"
             >
-              Sign Up
+              Sign In
             </button>
+             <h1 className="text-black text-center">
+              <p>Demo</p>
+              <p>Email: Pintu@gmail.com</p>
+              <p>Password: 123456</p>
+
+             </h1>
           </form>
+         
         </div>
       </div>
     </div>
