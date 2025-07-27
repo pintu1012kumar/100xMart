@@ -19,7 +19,8 @@ interface CardProps {
 }
 
 const Card: React.FC<CardProps> = ({ post }) => {
-  const imageSrc = post.image ? post.image : '/uploads/default.png';
+  // Ensure the image path starts with "/uploads/"
+  const imageSrc = post.image ? post.image.startsWith('/uploads') ? post.image : `/uploads/${post.image}` : '/uploads/default.png';
 
   return (
     <div
