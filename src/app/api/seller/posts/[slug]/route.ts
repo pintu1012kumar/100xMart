@@ -1,15 +1,13 @@
-// src/app/api/seller/posts/[slug]/route.ts
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 
-// `context` type should be typed using `NextApiContext`
 export async function GET(
   req: NextRequest,
-  context: { params: { slug: string } } // ✅ Correct type
+  { params }: { params: { slug: string } }
 ) {
-  try {
-    const { slug } = context.params;
+  const { slug } = params;
 
+  try {
     const post = await prisma.post.findFirst({
       where: { slug },
     });
