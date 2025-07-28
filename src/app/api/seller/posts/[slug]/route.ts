@@ -1,3 +1,4 @@
+// src/app/api/seller/posts/[slug]/route.ts
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 
@@ -9,9 +10,7 @@ export async function GET(
     const { slug } = context.params;
 
     const post = await prisma.post.findFirst({
-      where: {
-        slug,
-      },
+      where: { slug },
     });
 
     if (!post) {
