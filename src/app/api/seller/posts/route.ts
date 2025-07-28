@@ -27,8 +27,12 @@ export async function POST(req: Request) {
     });
 
     return NextResponse.json({ success: true, post });
-  } catch (err: any) {
-    console.error('POST error:', err);
+  } catch (err: unknown) {
+    if (err instanceof Error) {
+      console.error('POST error:', err.message);
+    } else {
+      console.error('POST unknown error:', err);
+    }
     return NextResponse.json({ error: 'Failed to create post' }, { status: 500 });
   }
 }
@@ -45,8 +49,12 @@ export async function GET() {
     });
 
     return NextResponse.json({ success: true, posts });
-  } catch (err) {
-    console.error('GET error:', err);
+  } catch (err: unknown) {
+    if (err instanceof Error) {
+      console.error('GET error:', err.message);
+    } else {
+      console.error('GET unknown error:', err);
+    }
     return NextResponse.json({ error: 'Failed to fetch posts' }, { status: 500 });
   }
 }
