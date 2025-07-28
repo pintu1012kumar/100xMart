@@ -1,15 +1,24 @@
+"use client";
+
 import { useRouter } from "next/navigation"; 
 import React from "react";
 
 const Navbar = () => {
-const router = useRouter();
+  const router = useRouter();
+
   const handleLogout = async () => {
     try {
-      await fetch("/api/buyer/logout", {
+      const res = await fetch("/api/buyer/logout", {
         method: "GET",
         credentials: "include",
       });
-      router.push("/buyersignin");
+
+      if (res.ok) {
+        router.push("/buyersignin");
+      } else {
+        console.error("Logout response not OK");
+        alert("Logout failed.");
+      }
     } catch (error) {
       console.error("Logout failed:", error);
       alert("Logout failed.");
@@ -17,29 +26,25 @@ const router = useRouter();
   };
 
   return (
-    <div className="flex justify-between items-center  p-6  text-white">
+    <div className="flex justify-between items-center p-6 text-white">
       <h1 className="text-3xl font-bold mx-5 text-blue-600">100xmart</h1>
-      <ul>
-        <li className="inline-block font-bold mr-6">
-          <a href="/buyersignin" className="text-white hover:text-blue-400">
-            Home
-          </a>
+      
+      <ul className="flex space-x-6">
+        <li className="font-bold">
+          <a href="/buyersignin" className="hover:text-blue-400">Home</a>
         </li>
-        <li className="inline-block font-bold mr-6">
-          <a href="/sellersignin" className="text-white hover:text-blue-400">
-            Contact us
-          </a>
+        <li className="font-bold">
+          <a href="/sellersignin" className="hover:text-blue-400">Contact Us</a>
         </li>
-        <li className="inline-block font-bold">
-          <a href="/buyerdashboard" className="text-white hover:text-blue-400">
-            About us
-          </a>
+        <li className="font-bold">
+          <a href="/buyerdashboard" className="hover:text-blue-400">About Us</a>
         </li>
       </ul>
 
       <button 
-      onClick={handleLogout}
-      className="ml-2  mr-5 px-4 py-2 bg-red-700 text-white rounded-4xl hover:bg-red-500 focus:outline-none focus:ring-2 focus:ring-blue-400">
+        onClick={handleLogout}
+        className="ml-4 px-4 py-2 bg-red-700 hover:bg-red-500 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-red-400"
+      >
         Logout
       </button>
     </div>

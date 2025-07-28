@@ -1,4 +1,3 @@
-
 "use client";
 
 import React, { useState, ChangeEvent } from "react";
@@ -8,14 +7,14 @@ import { useRouter } from "next/navigation";
 type PostInput = {
   title: string;
   content: string;
-  file: File | null;
+  image: string; // changed from File to string
 };
 
 const SellerDashboard = () => {
   const [postInputs, setPostInputs] = useState<PostInput>({
     title: "",
     content: "",
-    file: null,
+    image: "",
   });
 
   const router = useRouter();
@@ -34,20 +33,20 @@ const SellerDashboard = () => {
   };
 
   const sendRequest = async () => {
-    if (!postInputs.title || !postInputs.file) {
-      return alert("Title and image are required");
+    if (!postInputs.title || !postInputs.image) {
+      return alert("Title and image URL are required");
     }
 
-    const formData = new FormData();
-    formData.append("title", postInputs.title);
-    formData.append("content", postInputs.content);
-    formData.append("image", postInputs.file);
-
     try {
-      const response = await axios.post("/api/seller/posts", formData);
+      const response = await axios.post("/api/seller/posts", {
+        title: postInputs.title,
+        content: postInputs.content,
+        image: postInputs.image,
+      });
+
       console.log("Post created:", response.data);
       alert("Post created successfully!");
-      setPostInputs({ title: "", content: "", file: null }); // Reset form
+      setPostInputs({ title: "", content: "", image: "" }); // Reset form
     } catch (error) {
       console.error("Post creation failed:", error);
       alert("Failed to create post.");
@@ -96,15 +95,24 @@ const SellerDashboard = () => {
           }
         />
         <LabelInput
-          label="Image Upload"
-          type="file"
+          label="Image URL"
+          placeholder="https://example.com/image.webp"
           onChange={(e) =>
-            setPostInputs((prev) => ({
-              ...prev,
-              file: e.target.files?.[0] || null,
-            }))
+            setPostInputs((prev) => ({ ...prev, image: e.target.value }))
           }
         />
+
+        {/* Live Preview of the Image */}
+        {postInputs.image && (
+          <img
+            src={postInputs.image}
+            alt="Preview"
+            className="w-60 h-40 object-cover rounded-md mt-4 border"
+            onError={(e) =>
+              ((e.target as HTMLImageElement).src = "/default-fallback.webp")
+            }
+          />
+        )}
 
         <button
           type="button"
@@ -136,7 +144,7 @@ function LabelInput({ label, placeholder, onChange, type }: LabelInputType) {
         onChange={onChange}
         className="bg-gray-50 border border-gray-500 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
         placeholder={placeholder}
-        required={type !== "file"}
+        required
       />
     </div>
   );

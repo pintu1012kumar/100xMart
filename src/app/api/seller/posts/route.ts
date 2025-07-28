@@ -4,33 +4,24 @@ import slugify from 'slugify';
 
 export async function POST(req: Request) {
   try {
-    const formData = await req.formData();
+    const body = await req.json(); // ✅ Receive JSON instead of formData
 
-    const title = formData.get('title') as string;
-    const content = formData.get('content') as string;
-    const file = formData.get('image') as File;
+    const { title, content, image } = body;
 
-    if (!title || !content || !file) {
+    if (!title || !content || !image) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
     }
 
     const slug = slugify(title, { lower: true, strict: true });
-
-    const buffer = await file.arrayBuffer();
-    const bytes = new Uint8Array(buffer);
-
-    // NOTE: Save this `bytes` to file system or cloud (you decide)
-    // For now we just fake the image URL
-    const imageUrl = `/uploads/${file.name}`;
 
     const post = await prisma.post.create({
       data: {
         title,
         content,
         slug,
-        image: imageUrl,
-        status: 'Processing',   // or 'Success' depending on logic
-        authorId: 1,            // TODO: Replace with actual logged-in user ID
+        image, // now directly saving URL string
+        status: 'Processing', // or 'Success' based on logic
+        authorId: 1,           // TODO: Replace with real user ID (session-based)
         published: false,
       },
     });

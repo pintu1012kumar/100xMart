@@ -19,7 +19,7 @@ export default function WelcomePage() {
           hain.
         </p>
         <button 
-        onClick={ () => router.push("/100xmart")}
+        onClick={ () => router.push("buyerdashboard/100xmart")}
         className="ml-2 mr-5 px-4 py-2 bg-blue-600 text-white rounded-2xl hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-400">
           Go to shopping
         </button>

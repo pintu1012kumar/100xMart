@@ -11,6 +11,7 @@ interface Post {
   published: boolean;
   status: string;
   authorId: number;
+  slug: string;
   createdAt: string;
   updatedAt: string;
 }
