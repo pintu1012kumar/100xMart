@@ -2,9 +2,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 
+// `context` type should be typed using `NextApiContext`
 export async function GET(
   req: NextRequest,
-  context: { params: { slug: string } }
+  context: { params: { slug: string } } // ✅ Correct type
 ) {
   try {
     const { slug } = context.params;
