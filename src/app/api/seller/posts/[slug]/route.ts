@@ -3,9 +3,9 @@ import { prisma } from '@/lib/prisma';
 
 export async function GET(
   req: NextRequest,
-  { params }: { params: { slug: string } } // ✅ Correct shape manually
+  context: { params: { slug: string } } // ✅ Keep it like this
 ) {
-  const { slug } = params;
+  const slug = context.params.slug;
 
   try {
     const post = await prisma.post.findFirst({
